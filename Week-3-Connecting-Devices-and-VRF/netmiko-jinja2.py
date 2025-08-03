@@ -37,7 +37,7 @@ def configure_device(device, template):
   }
 
   with ConnectHandler(**device_params) as ssh:
-    print(f"Connected to {device['name']}:{device['ip_address']}\nConfiguring...")
+    print(f"Connected to {device['name']} at {device['ip_address']}\nConfiguring...")
     commands = template.render(device).strip()
 
     result = ssh.send_config_set(commands.splitlines())
