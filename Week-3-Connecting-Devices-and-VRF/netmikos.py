@@ -50,7 +50,10 @@ def configure_r1():
   configure_devices(device_params, commands, "R1")
 
 def configure_r2():
-  """Function to configure R2 (CiscoIOSv-2, 172.31.16.5) using Netmiko."""
+  """
+  Function to configure R2 (CiscoIOSv-2, 172.31.16.5) using Netmiko.
+  Configures OSPF, loopback interface, and NAT.
+  """
   ip_address = '172.31.16.5'
 
   device_params = {
