@@ -1,0 +1,37 @@
+{% if name == 'r1' or name == 'r2' %}
+router ospf 1
+router-id {{ router_id }}
+{% for network in ospf_networks %}
+network {{ network.address }} {{ network.wildcard }} area {{ network.area }}
+{% endfor %}
+{% if name == 'r2' and default_info_originate %}
+default-information originate
+{% endif %}
+interface Loopback0
+ip add {{ loopback.ip_address }} {{ loopback.mask }}
+no shut
+exit
+{% endif %}
+
+{% if name == 'r2' %}
+int range {{ nat_inside_interfaces }}
+ip nat inside
+exit
+int {{ nat_outside_interface }}
+ip nat outside
+exit
+access-list 1 permit {{ nat_acl.address }} {{ nat_acl.wildcard }}
+ip nat inside source list 1 int {{ nat_outside_interface }} overload
+{% endif %}
+
+{% if name == 's1' %}
+vlan {{ vlan.id }}
+name {{ vlan.name }}
+exit
+interface vlan {{ vlan.id }}
+ip address {{ vlan.ip_address }} {{ vlan.mask }}
+interface range {{ access_interfaces }}
+switchport mode access
+switchport access vlan {{ vlan.id }}
+no shutdown
+{% endif %}
