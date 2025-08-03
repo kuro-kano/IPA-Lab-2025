@@ -1,5 +1,6 @@
-r1:
+- name: r1
   ip_address: 172.31.16.4
+  device_type: cisco_ios
   router_id: 1.1.1.1
   loopback:
     ip_address: 10.255.1.1
@@ -15,8 +16,9 @@ r1:
       wildcard: 0.0.0.0
       area: 0
 
-r2:
+- name: r2
   ip_address: 172.31.16.5
+  device_type: cisco_ios
   router_id: 2.2.2.2
   loopback:
     ip_address: 10.255.2.2
@@ -31,14 +33,16 @@ r2:
     - address: 10.255.2.2
       wildcard: 0.0.0.0
       area: 0
+  default_info_originate: True
   nat_inside_interfaces: g0/1-2
   nat_outside_interface: g0/3
   nat_acl:
     address: 10.0.0.0
     wildcard: 0.0.255.255
 
-s1:
+- name: s1
   ip_address: 172.31.16.3
+  device_type: cisco_ios
   vlan:
     id: 101
     name: VLAN101
