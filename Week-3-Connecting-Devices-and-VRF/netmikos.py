@@ -49,6 +49,7 @@ def configure_s1():
   ]
   
   with ConnectHandler(**device_params) as ssh:
+    print("Connected S1\nConfiguring S1...")
     result = ssh.send_config_set(commands)
     print(result)
     print("S1 configuration completed.")
