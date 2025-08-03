@@ -17,9 +17,15 @@ def connect_to_devices():
     ssh = paramiko.SSHClient()
     ssh.set_missing_host_key_policy(paramiko.AutoAddPolicy())
 
-    network = ["172.31.16.1", "172.31.16.2", "172.31.16.3", "172.31.16.4", "172.31.16.5"]
+    network = [
+        ("R0", "172.31.16.1"),
+        ("S0", "172.31.16.2"),
+        ("S1", "172.31.16.3"),
+        ("R1", "172.31.16.4"),
+        ("R2", "172.31.16.5"),
+        ]
 
-    for index, ip in enumerate(network):
+    for index, (name, ip) in enumerate(network):
         try:
             print(f"Attempting to connect to {ip}...")
 
@@ -33,11 +39,10 @@ def connect_to_devices():
             )
             print(f"Connected to {ip} successfully.")
 
-            # if index == 0:
-            stdin, stdout, stderr = ssh.exec_command("show running-config")
-
-            with open("R0_running_config.txt", "w") as file:
-                file.write(stdout.read().decode())
+            if index == 0:
+                stdin, stdout, stderr = ssh.exec_command("show running-config")
+                with open(f"{name}_running_config.txt", "w") as file:
+                    file.write(stdout.read().decode())
 
         except Exception as e:
             print(f"Failed to connect to {ip}: {e}")
