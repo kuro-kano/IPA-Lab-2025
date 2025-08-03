@@ -111,7 +111,7 @@ def configure_s1():
     'exit',
     'interface vlan 101',
     'ip address 10.0.101.2 255.255.255.0',
-    'interface range g0/1-2',
+    'interface range g0/1, g1/1',
     'switchport mode access',
     'switchport access vlan 101',
     'no shutdown',
