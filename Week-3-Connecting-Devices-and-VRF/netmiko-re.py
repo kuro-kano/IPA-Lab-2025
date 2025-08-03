@@ -28,7 +28,8 @@ def main():
 
 def get_active_interfaces(output):
   """Function to retrieve active interfaces using regex."""
-  pass
+  pattern = r'(\S+)\s+([0-9.]+)\s+YES\s+configured\s+up\s+up'
+  match = re.search(pattern, output)
 
 def get_uptime(output):
   """Function to retrieve device uptime using regex."""
