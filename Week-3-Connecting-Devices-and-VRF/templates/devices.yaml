@@ -1,0 +1,47 @@
+r1:
+  ip_address: 172.31.16.4
+  router_id: 1.1.1.1
+  loopback:
+    ip_address: 10.255.1.1
+    mask: 255.255.255.255
+  ospf_networks:
+    - address: 10.0.0.0
+      wildcard: 0.0.0.255
+      area: 0
+    - address: 10.0.1.0
+      wildcard: 0.0.0.255
+      area: 0
+    - address: 10.255.1.1
+      wildcard: 0.0.0.0
+      area: 0
+
+r2:
+  ip_address: 172.31.16.5
+  router_id: 2.2.2.2
+  loopback:
+    ip_address: 10.255.2.2
+    mask: 255.255.255.255
+  ospf_networks:
+    - address: 10.0.101.0
+      wildcard: 0.0.0.255
+      area: 0
+    - address: 10.0.1.0
+      wildcard: 0.0.0.255
+      area: 0
+    - address: 10.255.2.2
+      wildcard: 0.0.0.0
+      area: 0
+  nat_inside_interfaces: g0/1-2
+  nat_outside_interface: g0/3
+  nat_acl:
+    address: 10.0.0.0
+    wildcard: 0.0.255.255
+
+s1:
+  ip_address: 172.31.16.3
+  vlan:
+    id: 101
+    name: VLAN101
+    ip_address: 10.0.101.2
+    mask: 255.255.255.0
+  access_interfaces: g0/1, g1/1
