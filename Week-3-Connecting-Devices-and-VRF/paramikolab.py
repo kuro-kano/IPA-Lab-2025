@@ -33,11 +33,11 @@ def connect_to_devices():
             )
             print(f"Connected to {ip} successfully.")
 
-            if index == 0:
-                stdin, stdout, stderr = ssh.exec_command("show running-config")
+            # if index == 0:
+            stdin, stdout, stderr = ssh.exec_command("show running-config")
 
-                with open("R0_running_config.txt", "w") as file:
-                    file.write(stdout.read().decode())
+            with open("R0_running_config.txt", "w") as file:
+                file.write(stdout.read().decode())
 
         except Exception as e:
             print(f"Failed to connect to {ip}: {e}")

@@ -1,8 +1,9 @@
 """netmiko.py"""
 from netmiko import ConnectHandler
+import os
 
 USERNAME = 'admin'
-PASSWORD = 'cisco'
+SSH_KEY_FILE = os.path.expanduser("~/.ssh/id_rsa")
 
 def main():
   """Main function to configure devices using Netmiko."""
@@ -29,7 +30,11 @@ def configure_r1():
     'device_type': 'cisco_ios',
     'ip': ip_address,
     'username': USERNAME,
-    'password': PASSWORD,
+    'key_file': SSH_KEY_FILE,
+    'use_keys': True,
+    'allow_agent': False,
+    'disabled_algorithms': dict(pubkeys=["rsa-sha2-512", "rsa-sha2-256"]),
+    'conn_timeout': 30,
   }
 
   commands = [
@@ -60,7 +65,11 @@ def configure_r2():
     'device_type': 'cisco_ios',
     'ip': ip_address,
     'username': USERNAME,
-    'password': PASSWORD,
+    'key_file': SSH_KEY_FILE,
+    'use_keys': True,
+    'allow_agent': False,
+    'disabled_algorithms': dict(pubkeys=["rsa-sha2-512", "rsa-sha2-256"]),
+    'conn_timeout': 30,
   }
 
   commands = [
@@ -102,7 +111,11 @@ def configure_s1():
     'device_type': 'cisco_ios',
     'ip': ip_address,
     'username': USERNAME,
-    'password': PASSWORD,
+    'key_file': SSH_KEY_FILE,
+    'use_keys': True,
+    'allow_agent': False,
+    'disabled_algorithms': dict(pubkeys=["rsa-sha2-512", "rsa-sha2-256"]),
+    'conn_timeout': 30,
   }
 
   commands = [

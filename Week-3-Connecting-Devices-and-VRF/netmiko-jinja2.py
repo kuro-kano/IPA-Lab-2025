@@ -4,7 +4,7 @@ from jinja2 import Environment, FileSystemLoader
 import yaml, os
 
 USERNAME = 'admin'
-PASSWORD = 'cisco'
+SSH_KEY_FILE = os.path.expanduser("~/.ssh/id_rsa")
 
 def main():
   """Main function to configure devices using Netmiko with Jinja2."""
@@ -33,7 +33,11 @@ def configure_device(device, template):
     'device_type': device['device_type'],
     'ip': device['ip_address'],
     'username': USERNAME,
-    'password': PASSWORD,
+    'key_file': SSH_KEY_FILE,
+    'use_keys': True,
+    'allow_agent': False,
+    'disabled_algorithms': dict(pubkeys=["rsa-sha2-512", "rsa-sha2-256"]),
+    'conn_timeout': 30,
   }
 
   with ConnectHandler(**device_params) as ssh:

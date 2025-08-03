@@ -1,23 +1,31 @@
 """netmiko-re.py"""
 from netmiko import ConnectHandler
-import re
+import re, os
 
 USERNAME = 'admin'
-PASSWORD = 'cisco'
+SSH_KEY_FILE = os.path.expanduser("~/.ssh/id_rsa")
 
 devices = [
-  {
-    'ip': '172.31.16.4',
-    'device_type': 'cisco_ios',
-    'username': USERNAME,
-    'password': PASSWORD,
-  },
-  {
-    'ip': '172.31.16.5',
-    'device_type': 'cisco_ios',
-    'username': USERNAME,
-    'password': PASSWORD,
-  }
+    {
+        'ip': '172.31.16.4',
+        'device_type': 'cisco_ios',
+        'username': USERNAME,
+        'key_file': SSH_KEY_FILE,
+        'use_keys': True,
+        'allow_agent': False,
+        'disabled_algorithms': dict(pubkeys=["rsa-sha2-512", "rsa-sha2-256"]),
+        'conn_timeout': 30,
+    },
+    {
+        'ip': '172.31.16.5',
+        'device_type': 'cisco_ios',
+        'username': USERNAME,
+        'key_file': SSH_KEY_FILE,
+        'use_keys': True,
+        'allow_agent': False,
+        'disabled_algorithms': dict(pubkeys=["rsa-sha2-512", "rsa-sha2-256"]),
+        'conn_timeout': 30,
+    }
 ]
 
 def main():
