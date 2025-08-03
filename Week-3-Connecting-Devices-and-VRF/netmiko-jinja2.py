@@ -18,7 +18,7 @@ def main():
   except FileNotFoundError:
     print(f"Error: The file {file_path} does not exist.")
     return
-  
+
   template_dir = os.path.join(script_dir, 'templates')
   env = Environment(loader=FileSystemLoader(template_dir))
   template = env.get_template('devices_template.txt')
