@@ -1,9 +1,8 @@
-
 Building configuration...
 
-Current configuration : 4079 bytes
+Current configuration : 4266 bytes
 !
-! Last configuration change at 16:23:59 UTC Sun Aug 3 2025 by admin
+! Last configuration change at 05:08:07 UTC Mon Aug 4 2025 by admin
 !
 version 15.2
 service timestamps debug datetime msec
@@ -54,21 +53,25 @@ spanning-tree extend system-id
 !
 !
 interface GigabitEthernet0/0
+ description Connect to Gig 0/3 of S0
  switchport access vlan 99
  switchport mode access
  negotiation auto
 !
 interface GigabitEthernet0/1
+ description Connect to PC
  switchport access vlan 101
  switchport mode access
  negotiation auto
 !
 interface GigabitEthernet0/2
+ description Connect to Gig 0/1 of S1
  switchport mode access
  shutdown
  negotiation auto
 !
 interface GigabitEthernet0/3
+ description Connect to Gig 0/1 of R0
  switchport mode access
  negotiation auto
 !
@@ -115,12 +118,14 @@ interface Vlan99
  no ip route-cache
 !
 interface Vlan101
- ip address 10.0.101.2 255.255.255.0
+ no ip address
 !
+ip default-gateway 172.31.16.1
 ip forward-protocol nd
 !
 ip http server
 !
+ip route 0.0.0.0 0.0.0.0 172.31.16.0
 ip ssh version 2
 ip ssh pubkey-chain
   username admin

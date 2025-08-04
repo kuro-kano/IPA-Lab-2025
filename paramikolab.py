@@ -25,7 +25,7 @@ def connect_to_devices():
         ("R2", "172.31.16.5"),
         ]
 
-    for index, (name, ip) in enumerate(network):
+    for name, ip in network:
         try:
             print(f"Attempting to connect to {ip}...")
 
@@ -39,10 +39,9 @@ def connect_to_devices():
             )
             print(f"Connected to {ip} successfully.")
 
-            if index == 0:
-                stdin, stdout, stderr = ssh.exec_command("show running-config")
-                with open(f"{name}_running_config.txt", "w") as file:
-                    file.write(stdout.read().decode())
+            stdin, stdout, stderr = ssh.exec_command("show running-config")
+            with open(f"{name}_running_config.txt", "w") as file:
+                file.write(stdout.read().decode())
 
         except Exception as e:
             print(f"Failed to connect to {ip}: {e}")
