@@ -1,5 +1,5 @@
 """testfsmlab.py"""
-import netmiko as ConnectHandler
+from netmiko import ConnectHandler
 import os
 
 USERNAME = 'admin'
@@ -37,7 +37,7 @@ def configure_r1():
       print("Running 'show cdp neighbors' command...")
       output = ssh.send_command("show cdp neighbors", use_textfsm=True)
       config = configure_template(output)
-      config.extend(["int g0/1", "description Connect to PC", "exit"])
+      config.extend(["int Gig0/1", "description Connect to PC", "exit"])
       
       result = ssh.send_config_set(config)
       print(result)
@@ -64,7 +64,7 @@ def configure_r2():
       print("Running 'show cdp neighbors' command...")
       output = ssh.send_command("show cdp neighbors", use_textfsm=True)
       config = configure_template(output)
-      config.extend(["int g0/1", "description Connect to WAN", "exit"])
+      config.extend(["int Gig0/1", "description Connect to WAN", "exit"])
 
       result = ssh.send_config_set(config)
       print(result)
@@ -91,7 +91,7 @@ def configure_s1():
       print("Running 'show cdp neighbors' command...")
       output = ssh.send_command("show cdp neighbors", use_textfsm=True)
       config = configure_template(output)
-      config.extend(["int g0/1", "description Connect to PC", "exit"])
+      config.extend(["int Gig0/1", "description Connect to PC", "exit"])
 
       result = ssh.send_config_set(config)
       print(result)
