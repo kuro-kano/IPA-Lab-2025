@@ -127,8 +127,20 @@ def configure_s1():
     'interface range g0/1, g1/1',
     'switchport mode access',
     'switchport access vlan 101',
+    #เพิ่ม port security ให้ใช้ได้แค่ MAC address 1 เดียว โดย KawaiiZT 66070069
+    'switchport port-security',
+    'switchport port-security maximum 1',
+    'switchport port-security violation shutdown',
     'no shutdown',
-  ]
+    #เพิ่ม acl telnetssh ไม่ให้ 10.0.101.3 สามารถ telnet หรือ ssh เข้าได้ โดย KawaiiZT 66070069 
+    'exit',
+    'ip access-list extended telnetssh',
+    'deny tcp 10.0.101.3 255.255.255.255 eq 23',
+    'deny tcp 10.0.101.3 255.255.255.255 eq 22',
+    'exit',
+    'line vty 0 4',
+    'access-class telnetssh in',
+    'exit'  ]
 
   configure_devices(device_params, commands, "S1")
 
