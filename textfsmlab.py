@@ -5,10 +5,6 @@ import os
 USERNAME = 'admin'
 SSH_KEY_FILE = os.path.expanduser("~/.ssh/id_rsa")
 
-def main():
-    """Main function to configure devices using Netmiko. and Textfsm template"""
-    pass
-
 def configure_template(cdp_neighbor, config: list=[]):
   """Function to crete output template using Textfsm."""
   for neighbor in cdp_neighbor:
